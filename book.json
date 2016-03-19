@@ -1,0 +1,41 @@
+{
+  "Books" :
+            [
+
+            {"id" : "001",
+              "title" : "Understanding Audio: Getting the Most Out of Your Project of Professional Recording Studio",
+              "authors" :
+              {
+                "author1" : "Daniel M. Thompson"
+              },
+              "pages" : "368",
+              "publisher" : "Berklee Press",
+              "ISBN-10" : "0634009591",
+              "ISBN-13" : "978-0634009594"
+            },
+            {"id" : "002",
+              "title" : "Here, There, and Everywhere: My Life Recording the Music of The Beatles",
+              "authors" :
+              {
+                "author1" : "Geoff Emerick",
+                "author2" : "Howard Massey"
+              },
+              "pages" : "400",
+              "publisher" : "Gotham",
+              "ISBN-10" : "15924017791",
+              "ISBN-13" : ""
+            },
+            {"id" : "003",
+             "title" : "Mixing Secrets for the Small Studio",
+             "authors" :
+              {
+                "author1" : "Mike Senior"
+              },
+              "pages" : "352",
+              "publisher" : "Focal Press",
+              "ISBN-10" : "0240815807",
+              "ISBN-13" : "978-0240815800"
+              }
+
+            ]
+}

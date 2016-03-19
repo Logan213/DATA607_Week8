@@ -1,0 +1,32 @@
+<BOOKS>
+    <BOOK>
+        <ID>001</ID>
+        <TITLE>Understanding Audio: Getting the Most Out of Your Project of Professional Recording Studio</TITLE>
+        <AUTHOR1>Daniel M. Thompson</AUTHOR1>
+        <AUTHOR2> </AUTHOR2>
+        <PAGES>368</PAGES>
+        <PUBLISHER>Berklee Press</PUBLISHER>
+        <ISBN-10>0634009591</ISBN-10>
+        <ISBN-13>978-0634009594</ISBN-13>
+    </BOOK>
+    <BOOK>
+        <ID>002</ID>
+        <TITLE>Here, There, and Everywhere: My Life Recording the Music of The Beatles</TITLE>
+        <AUTHOR1>Geoff Emerick</AUTHOR1>
+        <AUTHOR2>Howard Massey</AUTHOR2>
+        <PAGES>400</PAGES>
+        <PUBLISHER>Gotham</PUBLISHER>
+        <ISBN-10>15924017791</ISBN-10>
+        <ISBN-13> </ISBN-13>
+    </BOOK>
+    <BOOK>
+        <ID>003</ID>
+        <TITLE>Mixing Secrets for the Small Studio</TITLE>
+        <AUTHOR1>Mike Senior</AUTHOR1>
+        <AUTHOR2> </AUTHOR2>
+        <PAGES>352</PAGES>
+        <PUBLISHER>Focal Press</PUBLISHER>
+        <ISBN-10>0240815807</ISBN-10>
+        <ISBN-13>978-0240815800</ISBN-13>
+    </BOOK>
+</BOOKS>
