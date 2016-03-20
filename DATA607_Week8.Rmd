@@ -1,0 +1,113 @@
+---
+title: "DATA 607 Week 8 Assignment"
+author: Logan Thomson  
+date: March 20, 2016
+output:  
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    theme: cosmo
+---  
+
+
+##Loading Packages  
+
+For this assignment, I used the `XML` package as the book recommends, but ran into some issues reading the hosted files on GitHub. I found the `xml2` package and was able to use the two in combination to successfully read the HTML and XML files.  
+
+```{r, message=FALSE, results='hide'}
+packages <- c("XML", "xml2", "jsonlite")
+lapply(packages, library, character.only = TRUE)
+```
+
+##Creating the Files  
+
+All three file types were created "by hand" in my IDE using the appropriate structure for each type, and saved as the appropriate file type needed for the assignment (.html, .json, and .xml).  For the attributes included in the files, I used the book title and author(s) as required for the assignment, as well as number of pages, the publisher, and the two different ISBN numbers for the books.  
+
+
+##Reading an HTML Table to Data Frame  
+
+I believe there is an isue with using the `XML` package functions and https:// URLs. `xml2`'s `read_html` was able to read both the html and XML files by just passing the address as a string. I was then able to combine the functions from `XML` with the read html file.  
+
+Since we are just trying to create a data frame from the whole HTML table, I simply passed the read URL into `htmlParse`, stored it in an object, and then cascaded this down through `readHTMLTable` and `data.frame` to create the data frame.  
+
+
+```{r}
+html_url <- "https://raw.githubusercontent.com/Logan213/DATA607_Week8/master/book.html"
+html_url <- read_html(html_url)
+
+parsed_books1 <- htmlParse(html_url)
+books_table <- readHTMLTable(parsed_books1)
+
+html.df <- data.frame(books_table, stringsAsFactors = FALSE)
+
+# split up data frame for readability:
+html.df[1]
+html.df[2]
+html.df[3:8]
+```  
+
+
+##Reading a JSON File to Data Frame  
+
+To parse over the JSON file, I knew about another package other than the one mentioned in the text (`RJSONIO`), whihc is `jsonlite`. This package will read a file from a given URL, parse over it, and then turn it into a nested data frame all in one step (`fromJSON` function).  
+
+In order to turn the returned data frame into a format we are familiar with, the `flatten` function from `jsonlite` will turn any of the nested data frames from a column into a regular 2-dimensional data frame.  
+
+
+```{r}
+json_url <- "https://raw.githubusercontent.com/Logan213/DATA607_Week8/master/book.json"
+json_file <- fromJSON(json_url)
+
+json.df <- flatten(data.frame(json_file, stringsAsFactors = FALSE))
+json.df
+```  
+
+
+##Reading an XML File to Data Frame  
+
+Similar to the HTML table above, I had to use a combination of `xml2`'s `read_xml` function and the other functions in the `XML` package. This time, I followed the steps outlined in the text, which consists of parsing over the file, then storing the top-level node in an object.  
+
+
+```{r}
+# open XML file
+xml_url <- "https://raw.githubusercontent.com/Logan213/DATA607_Week8/master/book.xml"
+xml_url <- read_xml(xml_url)
+
+parsed_books2 <- xmlParse(xml_url)
+root <- xmlRoot(parsed_books2)
+```
+
+Just to check how to access different levels below are the returns for using the method using the `root` object storing the top-level node, and also using `xml2`'s `xml_children` function on the un-parsed URL:  
+
+```{r}
+#using XML package
+root[[1]]
+
+# same thing in xml2
+xml_children(xml_url)[1]
+```  
+
+
+There are some other functions in `xml2` that I probably could have used in combination with other base-R functions to create the dataframe, but `XML`'s `xmlToDataFrame` seems wrap everything up in an easy-to-use package. Again, as demonstrated in the text, I passed the `root` object into this function and stored the result in an object.  
+
+
+```{r}
+xml.df <- xmlToDataFrame(root, stringsAsFactors = FALSE)
+xml.df
+```  
+
+
+##Conclusion  
+
+The files I created for this assignment had fairly basic structure, so the methods above worked fine. If the files were a little more complex, I might have needed to use some of the other functions included in the pacakges to get the same end result.  
+
+Since we wanted to compare the different data frames, I kept the parsing and creation of the data frames straight-forward. All three data frames have the same dimensions of 3 rows and 8 columns. The main differences are how empty nodes were treated (the json data frame has NAs where there no information for the authors or ISBN), the type of data in each column (the json and XML data frames consist of characters, not factors like the html data frame) and how the names for the data frames were created:  
+
+
+```{r}
+names(c(html.df, json.df, xml.df))
+```  
+
+
+The differences may be the result of how the files were read, parsed, and then fed into the data frame.  
